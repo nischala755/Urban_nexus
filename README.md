@@ -8,6 +8,13 @@ counterfactual Urban Ripple, configurable Impact Budget, Safe-to-Act Gate, an
 auditable Action Passport, human approval and an updated simulated ward state.
 There is no real municipal connection. Every operational reading is synthetic.
 
+## Deploy on Render
+
+[Deploy to Render](https://render.com/deploy?repo=https://github.com/nischala755/Urban_nexus)
+creates the Docker web service and PostgreSQL database from `render.yaml`.
+Both default to Free. **The free database expires after 30 days.**
+See [deployment steps and limitations](docs/render-deployment.md).
+
 ## Run locally
 
 Requires Python 3.11+ and Node.js 22+ (tested with Python 3.12 / Node 24).

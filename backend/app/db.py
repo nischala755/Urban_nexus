@@ -45,6 +45,9 @@ class AuditRow(Base):
 
 class Store:
     def __init__(self, url: str = "sqlite:///urbannexus.db"):
+        # Render supplies a driverless PostgreSQL URL; explicitly select psycopg 3.
+        if url.startswith(("postgres://", "postgresql://")):
+            url = "postgresql+psycopg://" + url.split("://", 1)[1]
         options = {}
         if url.startswith("sqlite"):
             options["connect_args"] = {"check_same_thread": False}

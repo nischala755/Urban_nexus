@@ -1,0 +1,12 @@
+.git
+.venv
+frontend/node_modules
+frontend/dist
+artifacts
+*.db
+*.db-*
+__pycache__
+.pytest_cache
+.env
+.superpowers
+*.egg-info

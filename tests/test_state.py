@@ -1,9 +1,9 @@
 import pytest
 from pydantic import ValidationError
 
+from backend.app.db import Store
 from backend.app.generator import generate_state
 from backend.app.schemas import UrbanState
-from backend.app.db import Store
 
 
 def test_generator_is_repeatable_and_seed_changes_measurements():

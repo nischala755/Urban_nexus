@@ -1,0 +1,11 @@
+{
+  "source": "local Docker Compose execution",
+  "database": "PostgreSQL 16",
+  "app_health": "healthy",
+  "database_health": "healthy",
+  "tests": ["test_postgres.py", "test_concurrency.py"],
+  "passed": 2,
+  "failed": 0,
+  "elapsed_seconds": 2.23,
+  "scope": "Real PostgreSQL: stress state, recommendation, transaction approval, replay rejection, synchronized concurrent approvals with exactly one commit and one conflict. Not a remote CI claim."
+}

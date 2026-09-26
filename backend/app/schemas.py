@@ -1,4 +1,5 @@
 """Canonical contracts. Units are part of field names; unknown fields are errors."""
+
 from datetime import datetime
 from typing import Annotated, Literal
 
@@ -18,7 +19,7 @@ class Traffic(Contract):
     arrival_vpm: Nonnegative
     queue_vehicles: Nonnegative
     green_seconds: Annotated[float, Field(ge=15, le=45)] = 30
-    cycle_seconds: Positive = 60
+    cycle_seconds: Literal[60] = 60
     density: Nonnegative
     vehicle_count: Nonnegative
     average_speed_kph: Nonnegative
@@ -32,6 +33,8 @@ class Energy(Contract):
     renewable_kw: Nonnegative
     demand_kw: Nonnegative
     capacity_kw: Positive = 750
+    deferred_kwh: Nonnegative = 0
+    recovery_minutes_remaining: Annotated[int, Field(ge=0, le=120)] = 0
     history: list[Nonnegative] = Field(min_length=3, max_length=100)
 
 
@@ -75,11 +78,13 @@ class Provenance(Contract):
     generator_version: str = "ward-generator/1.0"
     seed: Annotated[int, Field(ge=0, le=2**31 - 1)]
     scenario: str = "normal"
-    assumptions: list[str] = Field(default_factory=lambda: [
-        "Representative four-zone ward; no municipal infrastructure connection",
-        "Illustrative parameters; probabilities are not field calibrated",
-        "Deterministic one-minute fluid dynamics; EV collection fleet",
-    ])
+    assumptions: list[str] = Field(
+        default_factory=lambda: [
+            "Representative four-zone ward; no municipal infrastructure connection",
+            "Illustrative parameters; probabilities are not field calibrated",
+            "Deterministic one-minute fluid dynamics; EV collection fleet",
+        ]
+    )
 
 
 class UrbanState(Contract):
@@ -149,12 +154,20 @@ class EvaluateRequest(DecisionRequest):
 
 
 class StressRequest(Contract):
-    scenario: Literal["combined", "traffic_surge", "water_surge", "energy_peak",
-                      "waste_surge", "pump_outage", "vehicle_failure"] = "combined"
+    scenario: Literal[
+        "combined",
+        "traffic_surge",
+        "water_surge",
+        "energy_peak",
+        "waste_surge",
+        "pump_outage",
+        "vehicle_failure",
+    ] = "combined"
     severity: Annotated[float, Field(ge=0.1, le=3)] = 1
     duration_minutes: Annotated[int, Field(ge=15, le=180)] = 60
-    affected_zones: list[str] = Field(default_factory=lambda: ["Z01", "Z02", "Z03", "Z04"],
-                                      min_length=1, max_length=20)
+    affected_zones: list[str] = Field(
+        default_factory=lambda: ["Z01", "Z02", "Z03", "Z04"], min_length=1, max_length=20
+    )
     seed: Annotated[int, Field(ge=0, le=2**31 - 1)] = 42
 
 

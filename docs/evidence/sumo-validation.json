@@ -1,0 +1,37 @@
+{
+  "status": "executed",
+  "source_type": "synthetic",
+  "seed": 42,
+  "baseline": {
+    "producer": "SUMO/TraCI",
+    "version": "SUMO 1.27.1",
+    "seed": 42,
+    "source_type": "synthetic",
+    "intervention": false,
+    "simulated_seconds": 1619,
+    "trips": 300,
+    "unfinished_trips": 0,
+    "mean_background_delay_seconds": 110.50353333333334,
+    "mean_background_travel_seconds": 948.62,
+    "average_speed_kph": 33.701670255224705,
+    "max_queue_vehicles": 0,
+    "runtime_seconds": 9.806558699987363
+  },
+  "action": {
+    "producer": "SUMO/TraCI",
+    "version": "SUMO 1.27.1",
+    "seed": 42,
+    "source_type": "synthetic",
+    "intervention": true,
+    "simulated_seconds": 1757,
+    "trips": 301,
+    "unfinished_trips": 0,
+    "mean_background_delay_seconds": 110.01153333333333,
+    "mean_background_travel_seconds": 948.1566666666666,
+    "average_speed_kph": 33.32160797973534,
+    "max_queue_vehicles": 3,
+    "runtime_seconds": 10.509672500018496
+  },
+  "background_delay_delta_seconds": -0.49200000000000443,
+  "limitation": "Separate microscopic experiment; not field calibration or a substitute for the fluid-model gate."
+}

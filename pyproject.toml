@@ -8,12 +8,12 @@ version = "0.1.0"
 description = "Synthetic ward-level minimum safe intervention prototype"
 requires-python = ">=3.11"
 dependencies = [
-  "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pydantic>=2.10,<3",
-  "sqlalchemy>=2.0,<3", "psycopg[binary]>=3.2,<4",
+  "fastapi==0.141.1", "uvicorn==0.54.0", "pydantic==2.13.5",
+  "sqlalchemy==2.1.1", "psycopg[binary]==3.3.6",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1", "httpx2>=2.13,<3", "ruff>=0.11,<1"]
 sumo = ["eclipse-sumo>=1.22,<2", "traci>=1.22,<2"]
 
 [tool.setuptools.packages.find]
@@ -25,4 +25,3 @@ pythonpath = ["."]
 
 [tool.ruff]
 line-length = 110
-

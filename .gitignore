@@ -14,3 +14,6 @@ artifacts/
 slprj/
 *.egg-info/
 .ruff_cache/
+frontend/test-results/
+frontend/playwright-report/
+*.tsbuildinfo

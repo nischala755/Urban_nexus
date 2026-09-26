@@ -1,11 +1,16 @@
 """Inspectable reference equations; all coefficients are synthetic assumptions."""
+
 import math
 import statistics
 from statistics import NormalDist
 
-MODEL_VERSIONS = {"traffic": "fluid-queue/1.0", "water": "reservoir-p/1.0",
-                  "energy": "load-balance/1.0", "waste": "normal-rate/1.0",
-                  "optimizer": "enumeration-lexicographic/1.0"}
+MODEL_VERSIONS = {
+    "traffic": "fluid-queue/1.0",
+    "water": "reservoir-p/1.0",
+    "energy": "load-balance/1.0",
+    "waste": "normal-rate/1.0",
+    "optimizer": "enumeration-lexicographic/1.0",
+}
 PUMP_KWH_PER_M3 = 0.6
 EV_KWH_PER_KM = 1.2
 EV_IDLE_KWH_PER_MIN = 0.025
@@ -17,9 +22,13 @@ def water_step(volume, demand, capacity, pump_capacity, available, adjustment=0,
     if not available:
         flow = 0
     raw = volume + (flow - demand) * dt_minutes / 60
-    return {"volume_m3": min(capacity, max(0, raw)), "pump_flow_m3h": flow,
-            "pump_kw": flow * PUMP_KWH_PER_M3, "unserved_m3": max(0, -raw),
-            "spill_m3": max(0, raw - capacity)}
+    return {
+        "volume_m3": min(capacity, max(0, raw)),
+        "pump_flow_m3h": flow,
+        "pump_kw": flow * PUMP_KWH_PER_M3,
+        "unserved_m3": max(0, -raw),
+        "spill_m3": max(0, raw - capacity),
+    }
 
 
 def traffic_step(queue, arrival_vpm, green_seconds, extra_pcu_vpm=0, dt_minutes=1):
@@ -29,8 +38,13 @@ def traffic_step(queue, arrival_vpm, green_seconds, extra_pcu_vpm=0, dt_minutes=
     density = arrivals / max(service, 1)
     delay = 8 + 12 * density / max(0.15, 1 - min(0.95, density)) + next_queue / max(arrivals, 1) * 60
     speed = 40 / (1 + delay / 60)
-    return {"queue_vehicles": next_queue, "density": density, "delay_seconds": delay,
-            "average_speed_kph": speed, "vehicle_count": arrivals * 5 + next_queue}
+    return {
+        "queue_vehicles": next_queue,
+        "density": density,
+        "delay_seconds": delay,
+        "average_speed_kph": speed,
+        "vehicle_count": arrivals * 5 + next_queue,
+    }
 
 
 def overflow_risk(fill, rate, std, horizon_minutes, collection_minute=None):
@@ -49,8 +63,7 @@ def overflow_risk(fill, rate, std, horizon_minutes, collection_minute=None):
     else:
         before = max(0, collection_minute) / 60
         after = max(0, horizon_minutes - collection_minute) / 60
-        threshold = min((100 - fill) / before if before else math.inf,
-                        100 / after if after else math.inf)
+        threshold = min((100 - fill) / before if before else math.inf, 100 / after if after else math.inf)
     if std <= 0:
         return float(rate >= threshold)
     return max(0.0, min(1.0, 1 - NormalDist(rate, std).cdf(threshold)))
@@ -64,7 +77,8 @@ def _predict(values, method):
     mean_x = (n - 1) / 2
     mean_y = statistics.mean(window)
     slope = sum((i - mean_x) * (v - mean_y) for i, v in enumerate(window)) / sum(
-        (i - mean_x) ** 2 for i in range(n))
+        (i - mean_x) ** 2 for i in range(n)
+    )
     return max(0, mean_y + slope * (n - mean_x))
 
 
@@ -77,12 +91,15 @@ def forecast(values):
     method = min(errors, key=lambda key: statistics.mean(errors[key]))
     estimate = _predict(values, method)
     radius = max(errors[method])
-    return {"predicted": estimate, "method": method,
-            "validation_mae": statistics.mean(errors[method]),
-            "baseline_mae": statistics.mean(errors["persistence"]),
-            "interval": [max(0, estimate - radius), estimate + radius],
-            "interval_kind": "held-out absolute residual envelope; not calibrated",
-            "low_confidence": radius > max(1, estimate * 0.2)}
+    return {
+        "predicted": estimate,
+        "method": method,
+        "validation_mae": statistics.mean(errors[method]),
+        "baseline_mae": statistics.mean(errors["persistence"]),
+        "interval": [max(0, estimate - radius), estimate + radius],
+        "interval_kind": "held-out absolute residual envelope; not calibrated",
+        "low_confidence": radius > max(1, estimate * 0.2),
+    }
 
 
 def anomaly_score(history, current):
@@ -104,8 +121,9 @@ def energy_schedule(base_kw, tariffs, flexible_kwh, capacity_kw):
         total = [base + load for base, load in zip(base_kw, loads)]
         cost = sum(load * tariff for load, tariff in zip(loads, tariffs))
         objective = cost + 0.1 * max(total) + 2 * slot
-        candidates.append({"slot": slot, "load_kw": loads, "objective": objective,
-                           "cost_inr": cost, "feasible": True})
+        candidates.append(
+            {"slot": slot, "load_kw": loads, "objective": objective, "cost_inr": cost, "feasible": True}
+        )
     return min(candidates, key=lambda c: c["objective"]) if candidates else {"feasible": False}
 
 
@@ -115,19 +133,35 @@ def predictions(state, horizon_minutes=60):
         energy = forecast(z.energy.history + [z.energy.demand_kw])
         water = forecast(z.water.history + [z.water.demand_m3h])
         traffic = forecast(z.traffic.history + [z.traffic.arrival_vpm])
-        risk = overflow_risk(z.waste.fill_pct, z.waste.rate_pct_h,
-                             z.waste.rate_std_pct_h, horizon_minutes)
+        risk = overflow_risk(z.waste.fill_pct, z.waste.rate_pct_h, z.waste.rate_std_pct_h, horizon_minutes)
         score = anomaly_score(z.water.history, z.water.demand_m3h)
         alerts = []
         if traffic["predicted"] / z.traffic.green_seconds > 0.85:
-            alerts.append({"domain": "traffic", "message": "Congestion risk: arrival rate approaches service"})
+            alerts.append(
+                {"domain": "traffic", "message": "Congestion risk: arrival rate approaches service"}
+            )
         if energy["predicted"] > 0.80 * z.energy.capacity_kw:
-            alerts.append({"domain": "energy", "message": "Approaching feeder peak; consider flexible-load scheduling"})
+            alerts.append(
+                {"domain": "energy", "message": "Approaching feeder peak; consider flexible-load scheduling"}
+            )
         if score > 3:
-            alerts.append({"domain": "water", "message": f"Abnormal consumption pattern — investigate {z.id}"})
+            alerts.append(
+                {"domain": "water", "message": f"Abnormal consumption pattern — investigate {z.id}"}
+            )
         if risk >= 0.10:
             alerts.append({"domain": "waste", "message": "Overflow risk exceeds 10% model threshold"})
-        result.append({"zone_id": z.id, "energy": energy, "water": water, "traffic": traffic,
-                       "waste_overflow_probability": risk, "water_anomaly_score": score,
-                       "alerts": alerts, "horizon_minutes": horizon_minutes})
+        result.append(
+            {
+                "zone_id": z.id,
+                "energy": energy,
+                "water": water,
+                "traffic": traffic,
+                "waste_overflow_probability": risk,
+                "water_anomaly_score": score,
+                "alerts": alerts,
+                "horizon_minutes": horizon_minutes,
+                "forecast_horizon_minutes": 5,
+                "waste_horizon_minutes": horizon_minutes,
+            }
+        )
     return result

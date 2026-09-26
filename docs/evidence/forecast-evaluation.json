@@ -1,0 +1,135 @@
+{
+  "source_type": "synthetic",
+  "seed": 20260926,
+  "generator": "linear drift + Gaussian measurement noise; labelled 50% surges",
+  "protocol": "12 history points, next unseen point; 100 cases per zone/domain; no test-label fitting",
+  "limitations": "Illustrative synthetic validation only. Does not establish field calibration or disaster prediction.",
+  "metrics": {
+    "energy_kw": [
+      {
+        "zone_id": "Z01",
+        "held_out_cases": 100,
+        "persistence_mae": 6.903818660081447,
+        "selected_model_mae": 6.862640082111011,
+        "rmse": 8.085048950543896,
+        "anomaly_precision": 0.9090909090909091,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.9523809523809523
+      },
+      {
+        "zone_id": "Z02",
+        "held_out_cases": 100,
+        "persistence_mae": 6.8208461362204345,
+        "selected_model_mae": 6.384965653839246,
+        "rmse": 8.520156395013082,
+        "anomaly_precision": 0.8,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.8888888888888888
+      },
+      {
+        "zone_id": "Z03",
+        "held_out_cases": 100,
+        "persistence_mae": 7.033255075310027,
+        "selected_model_mae": 7.049477523903529,
+        "rmse": 8.406125665952882,
+        "anomaly_precision": 0.8695652173913043,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.9302325581395349
+      },
+      {
+        "zone_id": "Z04",
+        "held_out_cases": 100,
+        "persistence_mae": 6.779298254279925,
+        "selected_model_mae": 6.371625197430756,
+        "rmse": 8.24554716535858,
+        "anomaly_precision": 0.8333333333333334,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.9090909090909091
+      }
+    ],
+    "water_m3h": [
+      {
+        "zone_id": "Z01",
+        "held_out_cases": 100,
+        "persistence_mae": 2.734115410413799,
+        "selected_model_mae": 2.604182448561145,
+        "rmse": 3.2919584345502027,
+        "anomaly_precision": 0.7142857142857143,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.8333333333333334
+      },
+      {
+        "zone_id": "Z02",
+        "held_out_cases": 100,
+        "persistence_mae": 2.42853394033809,
+        "selected_model_mae": 2.4030703528070596,
+        "rmse": 3.0160503698903427,
+        "anomaly_precision": 0.8,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.8888888888888888
+      },
+      {
+        "zone_id": "Z03",
+        "held_out_cases": 100,
+        "persistence_mae": 2.1236534788508084,
+        "selected_model_mae": 2.21098338188142,
+        "rmse": 2.7489639420306062,
+        "anomaly_precision": 0.8333333333333334,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.9090909090909091
+      },
+      {
+        "zone_id": "Z04",
+        "held_out_cases": 100,
+        "persistence_mae": 2.4836293267289324,
+        "selected_model_mae": 2.395512703247911,
+        "rmse": 3.0204431662570346,
+        "anomaly_precision": 0.8695652173913043,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 0.9302325581395349
+      }
+    ],
+    "traffic_vpm": [
+      {
+        "zone_id": "Z01",
+        "held_out_cases": 100,
+        "persistence_mae": 0.2931835316410162,
+        "selected_model_mae": 0.27956523773451086,
+        "rmse": 0.3558780379892167,
+        "anomaly_precision": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 1.0
+      },
+      {
+        "zone_id": "Z02",
+        "held_out_cases": 100,
+        "persistence_mae": 0.27938702352984435,
+        "selected_model_mae": 0.27296445896063476,
+        "rmse": 0.35532689212733964,
+        "anomaly_precision": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 1.0
+      },
+      {
+        "zone_id": "Z03",
+        "held_out_cases": 100,
+        "persistence_mae": 0.40722583931834805,
+        "selected_model_mae": 0.3865547094587043,
+        "rmse": 0.4921241059430379,
+        "anomaly_precision": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 1.0
+      },
+      {
+        "zone_id": "Z04",
+        "held_out_cases": 100,
+        "persistence_mae": 0.3364814152187557,
+        "selected_model_mae": 0.3492883428916959,
+        "rmse": 0.42224795079339406,
+        "anomaly_precision": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_f1": 1.0
+      }
+    ]
+  }
+}

@@ -1,7 +1,13 @@
 import pytest
 
-from backend.app.domains import (water_step, traffic_step, overflow_risk, forecast,
-                                 anomaly_score, energy_schedule)
+from backend.app.domains import (
+    anomaly_score,
+    energy_schedule,
+    forecast,
+    overflow_risk,
+    traffic_step,
+    water_step,
+)
 
 
 def test_water_mass_balance_and_pump_power():

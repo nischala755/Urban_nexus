@@ -1,5 +1,6 @@
 """Portable SQLAlchemy persistence. Service layer owns multi-row transactions."""
-from datetime import datetime, timezone
+
+from datetime import UTC, datetime
 
 from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, create_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
@@ -37,8 +38,7 @@ class PassportRow(Base):
 class AuditRow(Base):
     __tablename__ = "audit_events"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True),
-                                               default=lambda: datetime.now(timezone.utc))
+    timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(UTC))
     event: Mapped[str] = mapped_column(String(40))
     payload: Mapped[dict] = mapped_column(JSON)
 

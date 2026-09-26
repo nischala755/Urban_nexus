@@ -1,0 +1,248 @@
+{
+  "source_type": "synthetic",
+  "seed": 42,
+  "intervention": {
+    "id": "collect-1-1",
+    "label": "1 EV via Z02 \u2192 Z04",
+    "kind": "waste",
+    "zone_id": "Z04",
+    "route": [
+      "DEPOT",
+      "Z02",
+      "Z04"
+    ],
+    "vehicles": 1,
+    "load_shift_kw": 0.0,
+    "pump_adjustment_m3h": 0.0,
+    "green_delta_seconds": 0.0
+  },
+  "baseline_kpi": {
+    "traffic_delay_seconds": 85.16056061816593,
+    "average_speed_kph": 16.534622151646182,
+    "queue_vehicles": 0.0,
+    "energy_demand_kw": 2521.263721384898,
+    "net_grid_kw": 2161.263721384898,
+    "reservoir_min_pct": 60.401383875518064,
+    "pump_kw": 510.30716619772977,
+    "waste_fill_pct": 105.08086953780611,
+    "overflow_probability": 0.897996396586281,
+    "energy_peak_kw": 2532.881075073553,
+    "energy_kwh": 2161.263721384898,
+    "renewable_utilization_pct": 100.0,
+    "distance_km": 0.0,
+    "travel_time_minutes": 0.0,
+    "response_minutes": 0,
+    "collection_energy_kwh": 0.0,
+    "deferred_energy_kwh": 0.0,
+    "repaid_energy_kwh": 0.0,
+    "cost_inr": 0.0,
+    "emissions_proxy_kg": 0.0,
+    "energy_cost_proxy_inr": 17290.109771079184
+  },
+  "predicted_kpi": {
+    "traffic_delay_seconds": 85.49465152725683,
+    "average_speed_kph": 16.49739444968812,
+    "queue_vehicles": 0.0,
+    "energy_demand_kw": 2533.6029461613375,
+    "net_grid_kw": 2173.6029461613375,
+    "reservoir_min_pct": 60.401383875518064,
+    "pump_kw": 510.30716619772977,
+    "waste_fill_pct": 19.740000000000002,
+    "overflow_probability": 0.0,
+    "energy_peak_kw": 2545.2202998499924,
+    "energy_kwh": 2173.6029461613375,
+    "renewable_utilization_pct": 100.0,
+    "distance_km": 9.399999999999999,
+    "travel_time_minutes": 42.36899105759329,
+    "response_minutes": 18,
+    "collection_energy_kwh": 12.33922477643983,
+    "deferred_energy_kwh": 0.0,
+    "repaid_energy_kwh": 0.0,
+    "cost_inr": 1367.9519284607463,
+    "emissions_proxy_kg": 8.63745734350788,
+    "energy_cost_proxy_inr": 17388.8235692907
+  },
+  "constraints": {
+    "passed": true,
+    "constraints": [
+      {
+        "name": "traffic_delay",
+        "actual": 0.5604386864157287,
+        "allowed": 3,
+        "unit": "%",
+        "margin": 2.4395613135842713,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "energy_demand",
+        "actual": 0.4913326941171143,
+        "allowed": 2,
+        "unit": "%",
+        "margin": 1.5086673058828857,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "reservoir",
+        "actual": 60.401383875518064,
+        "allowed": 40,
+        "unit": "%",
+        "margin": 20.401383875518064,
+        "status": "PASS",
+        "minimum": true,
+        "strict": false
+      },
+      {
+        "name": "waste_overflow",
+        "actual": 0.0,
+        "allowed": 0.1,
+        "unit": "probability",
+        "margin": 0.1,
+        "status": "PASS",
+        "minimum": false,
+        "strict": true
+      },
+      {
+        "name": "cost",
+        "actual": 1367.9519284607463,
+        "allowed": 5000,
+        "unit": "INR",
+        "margin": 3632.0480715392537,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "emissions_proxy",
+        "actual": 8.63745734350788,
+        "allowed": 30,
+        "unit": "kgCO2e",
+        "margin": 21.36254265649212,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "route_duration",
+        "actual": 42.36899105759329,
+        "allowed": 60,
+        "unit": "min",
+        "margin": 17.63100894240671,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "vehicle_availability",
+        "actual": 1,
+        "allowed": 2,
+        "unit": "physical",
+        "margin": 1,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "vehicle_capacity_m3",
+        "actual": 8.53408695378062,
+        "allowed": 12.0,
+        "unit": "physical",
+        "margin": 3.465913046219381,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "collection_within_horizon",
+        "actual": 18,
+        "allowed": 60,
+        "unit": "physical",
+        "margin": 42,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "route_completion_within_horizon",
+        "actual": 42.36899105759329,
+        "allowed": 60,
+        "unit": "physical",
+        "margin": 17.63100894240671,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "green_seconds_max",
+        "actual": 30.0,
+        "allowed": 45,
+        "unit": "physical",
+        "margin": 15.0,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "green_seconds_min",
+        "actual": 30.0,
+        "allowed": 15,
+        "unit": "physical",
+        "margin": 15.0,
+        "status": "PASS",
+        "minimum": true,
+        "strict": false
+      },
+      {
+        "name": "flexible_load_kw",
+        "actual": 0,
+        "allowed": 60.0,
+        "unit": "physical",
+        "margin": 60.0,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "feeder_capacity_ratio",
+        "actual": 0.9074078316058024,
+        "allowed": 1,
+        "unit": "physical",
+        "margin": 0.0925921683941976,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "unserved_water_m3",
+        "actual": 0.0,
+        "allowed": 0,
+        "unit": "physical",
+        "margin": 0.0,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      },
+      {
+        "name": "deferred_load_recovery_kw",
+        "actual": 708.486684487021,
+        "allowed": 750.0,
+        "unit": "physical",
+        "margin": 41.513315512979034,
+        "status": "PASS",
+        "minimum": false,
+        "strict": false
+      }
+    ]
+  },
+  "model_versions": {
+    "traffic": "fluid-queue/1.0",
+    "water": "reservoir-p/1.0",
+    "energy": "load-balance/1.0",
+    "waste": "normal-rate/1.0",
+    "optimizer": "enumeration-lexicographic/1.0"
+  },
+  "safe_failure": "NO SAFE ACTION FOUND"
+}

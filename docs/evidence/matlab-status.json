@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "status": "unavailable",
+  "producer": null,
+  "reason": "MATLAB executable not found. Install licensed MATLAB + Simulink and set MATLAB_EXECUTABLE.",
+  "fallback": "Python numerical reference; cross-runtime parity NOT validated"
+}

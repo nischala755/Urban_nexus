@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-09-26T15:56:56.146240+00:00",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "database": "SQLite in-memory",
+  "transport": "in-process FastAPI TestClient; includes serialization, excludes network",
+  "results": {
+    "current_state": {
+      "samples": 10,
+      "median_ms": 2.1252500009723008,
+      "max_ms": 3.515699994750321,
+      "target_ms": 500,
+      "target_met": true
+    },
+    "candidate_generation": {
+      "samples": 10,
+      "median_ms": 2.1785999997518957,
+      "max_ms": 2.421799988951534,
+      "target_ms": 2000,
+      "target_met": true
+    },
+    "minimum_intervention": {
+      "samples": 10,
+      "median_ms": 58.75415002810769,
+      "max_ms": 64.63889998849481,
+      "target_ms": 5000,
+      "target_met": true
+    },
+    "stress_test": {
+      "samples": 10,
+      "median_ms": 28.20549998432398,
+      "max_ms": 31.529699976090342,
+      "target_ms": 10000,
+      "target_met": true
+    }
+  }
+}

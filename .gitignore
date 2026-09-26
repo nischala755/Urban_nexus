@@ -12,3 +12,5 @@ artifacts/
 .worktrees/
 *.slxc
 slprj/
+*.egg-info/
+.ruff_cache/
